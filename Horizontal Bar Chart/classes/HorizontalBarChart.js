@@ -11,7 +11,7 @@ class HorizontalBarChart {
         this.chartPosY = obj.chartPosY || 450;
 
         this.gap = (this.chartHeight - (this.data.length * this.barWidth) - (this.margin * 2)) / (this.data.length - 1);
-        this.maxValue = max(this.data.map(row => row[this.yValue]));
+        this.maxValue = max(this.data.map(row => row[this.yValue])) || 1; // Avoid division by zero
 
         this.numOfTicks = 5; // Number of ticks on X-axis
         this.tickSpacing = 50; // Fixed spacing between ticks
@@ -38,49 +38,62 @@ class HorizontalBarChart {
         line(this.margin, 0, this.margin, -this.chartHeight); // Y-axis
         line(this.margin, 0, this.chartWidth, 0);   // X-axis
         
-        this.renderTicks(); // Call tick rendering function
+        this.renderTicks();
+        this.renderLabels();
+        this.renderBars();  // Ensure bars are drawn
         
         pop();
     }
 
     renderTicks() {
-        // X-Axis Ticks
+        push();
         for (let i = 0; i <= this.numOfTicks; i++) {
             let x = this.margin + i * this.tickSpacing;
-            let tickValue = (this.maxValue / this.numOfTicks) * i;
 
             stroke(this.axisColour);
             strokeWeight(1);
-            line(x, 0, x, 5); // Small tick lines
-
-            noStroke();
-            fill(this.axisTextColour);
-            textSize(10);
-            textAlign(CENTER, TOP);
-            text(round(tickValue), x, 8); // Tick labels
+            line(x, 0, x, 5); // Small tick marks
         }
+        pop();
     }
 
     renderBars() {
-        this.renderChart(); // Ensure chart is drawn before bars
-
         push();
-        translate(this.chartPosX, this.chartPosY);
-
         for (let i = 0; i < this.data.length; i++) {
-            let yPos = -((this.barWidth + this.gap) * i) - this.margin; // Apply top margin
+            let yPos = -((this.barWidth + this.gap) * i) - this.margin; // Corrected y-position
+            let barLength = this.data[i][this.yValue] * this.scaler;
+            
             fill(this.barColour);
             stroke(this.axisColour);
             strokeWeight(this.axisThickness);
-
-            // Bars extend along X with left margin applied
-            rect(this.margin, yPos, this.data[i][this.yValue] * this.scaler, -this.barWidth);
     
-            // Y-axis Labels
-            fill(this.axisTextColour);
-            noStroke();
-            textSize(12);
+            rect(this.margin, yPos - this.barWidth / 2, barLength, this.barWidth); // Adjusted yPos
+        }
+        pop();
+    }
+
+    renderLabels() {
+        push();
+        fill(this.axisTextColour);
+        noStroke();
+        textSize(10);
+
+        // X-Axis Tick Labels
+        push();
+        for (let i = 0; i <= this.numOfTicks; i++) {
+            let x = this.margin + i * this.tickSpacing;
+            let tickValue = (this.maxValue / this.numOfTicks) * i;
+            textAlign(CENTER, TOP);
+            text(round(tickValue), x, 8);
+        }
+        pop();
+
+        // Y-Axis Category Labels (Bar Labels)
+        push();
+        for (let i = 0; i < this.data.length; i++) {
+            let yPos = -((this.barWidth + this.gap) * i) - this.margin; // Apply top margin
             textAlign(RIGHT, CENTER);
+            textSize(12);
             text(this.data[i][this.xValue], this.margin - 10, yPos - (this.barWidth / 2));
         }
         pop();

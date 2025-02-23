@@ -27,7 +27,6 @@ function draw(){
         charts.renderTicks();
         charts.renderBars();
         charts.renderLabels();
-        // charts.renderAxis();
         
     });
 }

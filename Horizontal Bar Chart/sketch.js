@@ -22,13 +22,10 @@ function setup() {
 function draw(){
     background(0, 150, 150);
     charts.forEach(charts => {
-        // charts.render();
         charts.renderChart();
-        // charts.renderTicks();
+        charts.renderTicks();
         charts.renderBars();
-        // charts.renderLabels();
-        // charts.renderAxis();
-        
+        charts.renderLabels();
     });
 }
 

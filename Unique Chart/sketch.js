@@ -3,19 +3,21 @@ let cleanedData = [];
 let charts = [];
 
 function preload() {
-    data = loadTable('data/Combined.csv', 'csv', 'header');
+    data = loadTable('data/Game_Data.csv', 'csv', 'header');
 }
 
 function setup() {
-    createCanvas(600, 600);
+    createCanvas(800, 600);
     noLoop();
     cleanData();
     
     charts.push(new UniqueChart({
         data: cleanedData,
-        xValue: "Age_Group",
-        yValues: ["Total", "Female"],  // Bars = "Total", Line = "Female"
+        xValue: "Year",  // X-axis remains the year
+        yValue: "Total_Sales",
+        yValues: ["Nintendo", "Sony", "Microsoft", "Ubisoft", "EA"], // Include all publishers
     }));
+    
 }
 
 function draw() {
@@ -23,20 +25,21 @@ function draw() {
     charts.forEach(chart => {
         chart.renderChart();
         chart.renderTicks();
-        chart.renderBars();
-        chart.renderLineChart();
+        chart.renderLineChart()
         chart.renderLabels();
+        chart.renderLegend();
     });
 }
 
-function cleanData() {
-    for (let i = 0; i < data.rows.length; i++) {
-        cleanedData.push(data.rows[i].obj);
+function cleanData(){
+    for(let i=0; i<data.rows.length; i++ ){
+        cleanedData.push(data.rows[i].obj)
     }
 
-    for (let i = 0; i < cleanedData.length; i++) {
-        cleanedData[i].Female = parseInt(cleanedData[i].Female);
-        cleanedData[i].Male = parseInt(cleanedData[i].Male);
-        cleanedData[i].Total = parseInt(cleanedData[i].Total);
+    for(let i=0; i<cleanedData.length; i++ ){
+        cleanedData[i].Game = parseInt(cleanedData[i].Game)
+        cleanedData[i].Publisher = parseInt(cleanedData[i].Publisher)
+        cleanedData[i].Year = parseInt(cleanedData[i].Year)
+        cleanedData[i].Total_Sales = parseInt(cleanedData[i].Total_Sales)
     }
 }

@@ -61,16 +61,16 @@ class BarChart {
             let y = -i * this.tickSpacing;
     
             // Draw small black ticks on the Y-axis
-            stroke(this.axisColour); // Set stroke to black
+            stroke(this.axisColour);
             strokeWeight(this.axisThickness);
             line(-5, y, 0, y);
         }
         for (let i = 1; i <= this.numOfTicks; i++) {
             let y = -i * this.tickSpacing;
     
-            // Draw long red grid lines
+            // Draw long grid lines
             push();
-            stroke(this.tickColor); // Set stroke to red
+            stroke(this.tickColor);
             line(2, y, this.tickWidth, y);
             pop();
         }

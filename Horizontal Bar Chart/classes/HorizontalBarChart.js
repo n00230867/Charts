@@ -2,13 +2,13 @@ class HorizontalBarChart {
     constructor(obj) {
         // Data
         this.data = obj.data;
-        this.xValue = obj.xValue; // Categories (Y-Axis)
-        this.yValue = obj.yValue; // Values (X-Axis)
+        this.xValue = obj.xValue;
+        this.yValue = obj.yValue;
         
         // Chart Properties
         this.chartHeight = obj.chartHeight || 300;
         this.barWidth = obj.barWidth || 20;
-        this.margin = obj.margin || 20; // Margin applied on all sides
+        this.margin = obj.margin || 20;
         this.axisThickness = obj.axisThickness || 2;
         this.chartPosX = obj.chartPosX || 100;
         this.chartPosY = obj.chartPosY || 450;
@@ -28,7 +28,7 @@ class HorizontalBarChart {
 
         // Calculations
         this.gap = (this.chartHeight - (this.data.length * this.barWidth) - (this.margin * 2)) / (this.data.length - 1);
-        this.scaler = (this.numOfTicks * this.tickSpacing) / this.maxValue; // Corrected scaler
+        this.scaler = (this.numOfTicks * this.tickSpacing) / this.maxValue;
     }
 
     renderChart() {
@@ -47,7 +47,7 @@ class HorizontalBarChart {
         
         this.renderTicks();
         this.renderLabels();
-        this.renderBars();  // Ensure bars are drawn
+        this.renderBars();
         
         pop();
     }
@@ -63,7 +63,7 @@ class HorizontalBarChart {
 
         for (let i = 1; i <= this.numOfTicks; i++) {
             let x = this.margin + i * this.tickSpacing;
-            stroke(this.tickColor); // Set stroke to red
+            stroke(this.tickColor);
             line(x, -this.chartHeight, x, -2); // Small tick marks (extend downward)
         }
         pop();
@@ -72,14 +72,14 @@ class HorizontalBarChart {
     renderBars() {
         push();
         for (let i = 0; i < this.data.length; i++) {
-            let yPos = -((this.barWidth + this.gap) * i) - (this.margin + this.barWidth / 2); // Adjusted yPos
+            let yPos = -((this.barWidth + this.gap) * i) - (this.margin + this.barWidth / 2);
             let barLength = this.data[i][this.yValue] * this.scaler;
             
             fill(this.barColour);
             stroke(this.axisColour);
             strokeWeight(this.axisThickness);
     
-            rect(this.margin, yPos, barLength, this.barWidth); // Corrected yPos
+            rect(this.margin, yPos, barLength, this.barWidth);
         }
         pop();
     }
@@ -104,7 +104,7 @@ class HorizontalBarChart {
         push();
         textSize(12);
         for (let i = 0; i < this.data.length; i++) {
-            let yPos = -((this.barWidth + this.gap) * i) - (this.margin + this.barWidth / 2); // Corrected yPos
+            let yPos = -((this.barWidth + this.gap) * i) - (this.margin + this.barWidth / 2);
             textAlign(RIGHT, CENTER);
             text(this.data[i][this.xValue], this.margin - 10, yPos + this.barWidth / 2);
         }

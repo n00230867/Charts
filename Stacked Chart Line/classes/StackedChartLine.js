@@ -1,4 +1,4 @@
-class BarChartLine {
+class StackedChartLine {
     constructor(obj) {
         //Data
         this.data = obj.data;
@@ -75,7 +75,7 @@ class BarChartLine {
         for (let i = 1; i <= this.numOfTicks; i++) {
             let y = -i * this.tickSpacing;
             stroke(this.tickColor)
-            line(300, y, 2, y);
+            line(this.chartWidth, y, 2, y);
         }
         pop();
     }
@@ -117,7 +117,7 @@ class BarChartLine {
         // Draw the average line
         stroke(0, 255, 0);
         strokeWeight(2);
-        line(0, yAverage, this.chartWidth, yAverage); // Modified line to span the entire chart width
+        line(0, yAverage, this.chartWidth, yAverage);
 
         // Add a label for the average line
         fill(0, 255, 0);

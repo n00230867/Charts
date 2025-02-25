@@ -14,7 +14,7 @@ function setup() {
     noLoop(); // this will stop the draw function from looping
     angleMode(DEGREES); // this will change the angle mode to degrees
     cleanData();
-    charts.push(new BarChartLine({
+    charts.push(new StackedChartLine({
         data: cleanedData,
         xValue: "Age_Group",
         yValues: ["Female", "Male"],

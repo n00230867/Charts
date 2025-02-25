@@ -63,7 +63,7 @@ class UniqueChart {
 
         for (let j = 0; j < this.yValues.length; j++) {
             let yKey = this.yValues[j];
-            stroke(this.fixedColors[j]); // Use fixed color for the line
+            stroke(this.fixedColors[j]);
             strokeWeight(2);
             noFill();
 

@@ -1,10 +1,12 @@
 class StackedChart {
     constructor(obj) {
+        //Data
         this.data = obj.data;
         this.xValue = obj.xValue;
         this.yValues = obj.yValues;
         this.yValueTotal = obj.yValueTotal;
 
+        //Chart
         this.chartHeight = obj.chartHeight || 300;
         this.chartWidth = obj.chartWidth || 300;
         this.barWidth = obj.barWidth || 10;
@@ -12,20 +14,21 @@ class StackedChart {
         this.axisThickness = obj.axisThickness || 2;
         this.chartPosX = obj.chartPosX || 100;
         this.chartPosY = obj.chartPosY || 450;
+        this.axisColour = color(0, 0, 0);
+        this.axisTextColour = color(0, 0, 0);
 
+        //Calculations
         this.gap = (this.chartWidth - (this.data.length * this.barWidth) - (this.margin * 2)) / (this.data.length - 1);
         this.scaler = this.chartHeight / Math.max(...this.data.map(row => row[this.yValueTotal]));
 
-        this.axisColour = color(0, 0, 0);
-        this.barColour = color(0, 255, 150);
-        this.axisTextColour = color(0, 0, 0);
+        //this.barColour = color(0, 255, 150);
+        this.barColours = [color(255, 0, 0), color(0, 0, 255)]; // Example colors for two yValues
 
+        //Ticks
         this.numOfTicks = 5;
+        this.tickColor = color(155,155,155);
         this.tickSpacing = this.chartHeight / this.numOfTicks;
         this.maxValue = Math.ceil(Math.max(...this.data.map(row => row[this.yValueTotal])));
-
-        // Assigning colors for stacked bars
-        this.barColours = [color(255, 0, 0), color(0, 0, 255)]; // Example colors for two yValues
     }
 
     renderChart() {
@@ -67,6 +70,12 @@ class StackedChart {
         for (let i = 0; i <= this.numOfTicks; i++) {
             let y = -i * this.tickSpacing;
             line(-5, y, 0, y);
+        }
+
+        for (let i = 1; i <= this.numOfTicks; i++) {
+            let y = -i * this.tickSpacing;
+            stroke(this.tickColor)
+            line(300, y, 2, y);
         }
         pop();
     }

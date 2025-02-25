@@ -20,7 +20,7 @@ function setup() {
 }
 
 function draw(){
-    background(0, 150, 150);
+    background(255, 255, 255);
     charts.forEach(charts => {
         // charts.render();
         charts.renderChart();

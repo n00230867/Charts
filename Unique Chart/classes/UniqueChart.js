@@ -7,12 +7,12 @@ class UniqueChart {
         this.yValues = obj.yValues; // Array of Y-axis values (multiple lines)
 
         // Chart Dimensions
-        this.chartHeight = obj.chartHeight || 300;
-        this.chartWidth = obj.chartWidth || 500;
+        this.chartHeight = obj.chartHeight || 350;
+        this.chartWidth = obj.chartWidth || 550;
         this.margin = obj.margin || 0;
         this.axisThickness = obj.axisThickness || 2;
-        this.chartPosX = obj.chartPosX || 125;
-        this.chartPosY = obj.chartPosY || 450;
+        this.chartPosX = obj.chartPosX || 155;
+        this.chartPosY = obj.chartPosY || 500;
 
         // Colors
         this.axisColour = color(0);
@@ -154,7 +154,7 @@ class UniqueChart {
 
         // Y-Axis Label
         push();
-        translate(-60, -this.chartHeight / 2);
+        translate(-80, -this.chartHeight / 2);
         rotate(0);
         text("Sales (Millions)", 0, 0);
         pop();
